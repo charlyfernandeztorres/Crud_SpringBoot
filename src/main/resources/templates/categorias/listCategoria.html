@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ECOMMERCE | TECHNOLOGICAL.</title>
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/administrador/style.css}" rel="stylesheet">
+</head>
+
+<body>
+    <input type="checkbox" id="nav-toggle">
+    <div th:insert="fragments/admin/menu :: menu-principal" class="sidebar"></div>
+    <div class="main-content mb-5">
+        <header th:insert="fragments/admin/header :: header-principal"></header>
+        <main>
+            <div class="container-fluid">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Categoría</li>
+                    </ol>
+                </nav>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="fw-bold card-title">Categorias</h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="d-grid gap-2 d-md-flex  justify-content-md-end">
+                                            <a th:href="@{/categorias/create}" class="btn btn-success btn-sm"> <i class="fas fa-plus-circle"></i> Añadir
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div th:if="${msg != null}" class='alert alert-success' th:text="${msg}" role="alert"></div>
+                                <div class="row no-gutters">
+                                    <div class="col-12">
+                                        <p class="fw-bold card-title mb-3">Lista de Categorias</p>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-sm  table-hover table-bordered">
+                                                <thead class="text-center">
+                                                    <tr>
+                                                        <th scope="col">Nombre</th>
+                                                        <th scope="col">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="cat : ${categorias}">
+                                                        <td th:text="${cat.nombre}"></td>
+                                                        <td class="text-center">
+                                                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                                                <a th:href="@{/categorias/delete/{id} (id=${cat.id}) }" onclick="return confirm('¿Estas seguro?')" role="button" title="Eliminar el registro." class="btn btn-danger btn-sm"> <span class="fas fa-trash-alt"></span>
+                                                                </a>
+                                                                <a th:href="@{/categorias/edit/{id} (id=${cat.id})}" class="btn btn-warning btn-sm"> <span class="fas fa-pen-square text-white"></span>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot class="text-center">
+                                                    <tr>
+                                                        <th scope="col">Nombre</th>
+                                                        <th scope="col">Acciones</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                            <nav th:if="${categorias.totalPages > 0}" aria-label="Page navigation example">
+                                                <ul class="pagination justify-content-center">
+                                                    <li class="page-item" th:classappend="${categorias.number == 0 ? 'disabled' : ''}">
+                                                        <a th:href="@{/categorias/index(page=${categorias.number - 1})}" class="page-link">Anterior</a>
+                                                    </li>
+                                                    <li class="page-item" th:classappend="${i eq categorias.number + 1} ? 'active'" th:each="i : ${#numbers.sequence( 1, categorias.totalPages, 1)}">
+                                                        <a class="page-link" th:href="@{/categorias/index?page={tmpPag} (tmpPag=${i-1}) }" th:text="${i}" th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+                                                    </li>
+                                                    <li class="page-item" th:classappend="${categorias.number == (categorias.totalPages - 1) ? 'disabled' : ''}">
+                                                        <a th:href="@{/categorias/index(page=${categorias.number + 1})}" class="page-link">Siguiente</a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:insert="fragments/admin/footer :: pie-pagina"></footer>
+    </div>
+</body>
+
+</html>

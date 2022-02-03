@@ -1,0 +1,20 @@
+<div th:fragment="header-principal">
+    <div class="row">
+        <div class="col">
+            <label for="nav-toggle"><span class="fas fa-bars"></span> </label>
+        </div>
+        <div class="col">
+            <div class="d-grid gap-2 d-md-flex  justify-content-md-end">
+                <a th:href="@{/logout}" class="btn btn-danger btn-sm">
+                    <i class="fas fa-door-closed"></i> Salir
+                </a>
+                <a th:href="@{/login}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-door-closed"></i> Login
+                </a>
+                <a th:href="@{/register}" class="btn btn-success btn-sm">
+                    <i class="fas fa-door-closed"></i> Register
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ECOMMERCE | TECHNOLOGICAL.</title>
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/administrador/style.css}" rel="stylesheet">
+</head>
+
+<body>
+    <input type="checkbox" id="nav-toggle">
+    <div th:insert="fragments/admin/menu :: menu-principal" class="sidebar"></div>
+    <div class="main-content mb-5">
+        <header th:insert="fragments/admin/header :: header-principal"></header>
+        <main>
+            <div class="container-fluid">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"> Categoría</li>
+                        <li class="breadcrumb-item active" aria-current="page">Mantenimiento Categoría
+                        </li>
+                    </ol>
+                </nav>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="fw-bold card-title">Productos</h5>
+                            </div>
+                            <div class="card-body">
+                                <form class="m-3" th:action="@{/categorias/save}" th:object="${categoria}" method="post">
+                                    <input type="hidden" th:field="*{id}">
+                                    <div class="form-group mb-2">
+                                        <label>Nombre</label> <input type="text" class="form-control" name="nombre" th:field="*{nombre}" th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''" placeholder="Ingrese nombre de categoría">
+                                        <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+                                    </div>
+                                    <hr>
+                                    <button type="submit" class="btn btn-primary btn-sm btn-block">
+										<i class="fas fa-save"></i> Guardar
+									</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:insert="fragments/admin/footer :: pie-pagina"></footer>
+    </div>
+</body>
+
+</html>
